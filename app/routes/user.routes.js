@@ -3,6 +3,8 @@ module.exports = (app) => {
 
     var router = require("express").Router();
 
+    console.log("coming in user.routes.js");
+
     // Create a new User
     router.post("/", users.create);
 

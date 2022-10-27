@@ -3,6 +3,8 @@ const User = db.users;
 
 // Create and Save a new User
 exports.create = (req, res) => {
+    console.log("coming in user.controller.js with body: ", req.body);
+
     // Validate request
     if (!req.body.email || !req.body.password) {
         res.status(400).send({
@@ -21,7 +23,7 @@ exports.create = (req, res) => {
     });
 
     // Save User in the database
-    User.save(user)
+    user.save(user)
         .then((data) => {
             res.send(data);
         })

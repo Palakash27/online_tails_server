@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     });
 
     // Save Pet in the database
-    Pet.save(pet)
+    pet.save(pet)
         .then((data) => {
             res.send(data);
         })
