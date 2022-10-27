@@ -9,6 +9,9 @@ module.exports = (app) => {
     // Retrieve all Pets
     router.get("/", pets.findAll);
 
+    // Retrieve all Pets
+    router.get("/:userID", pets.findAllOfUser);
+
     // Retrieve a single Pet with id
     router.get("/:id", pets.findOne);
 

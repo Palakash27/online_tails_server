@@ -55,6 +55,22 @@ exports.findAll = (req, res) => {
         });
 };
 
+// Retrieve all Pets from the database.
+exports.findAllOfUser = (req, res) => {
+    const userID = req.params.userID;
+
+    Pet.find({ user_id: userID })
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving pets.",
+            });
+        });
+};
+
 // Find a single Pet with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
