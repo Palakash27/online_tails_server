@@ -9,7 +9,7 @@ module.exports = (app) => {
     // Retrieve all Pets
     router.get("/", pets.findAll);
 
-    // Retrieve all Pets
+    // Retrieve all Pets of a user
     router.get("/:userID", pets.findAllOfUser);
 
     // Retrieve a single Pet with id
@@ -21,7 +21,7 @@ module.exports = (app) => {
     // Delete a Pet with id
     router.delete("/:id", pets.delete);
 
-    // Create a new Pet
+    // delete all Pets
     router.delete("/", pets.deleteAll);
 
     app.use("/api/pets", router);

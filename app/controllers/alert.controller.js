@@ -1,29 +1,25 @@
 const db = require("../models");
-const Pet = db.pets;
+const Alert = db.alerts;
 
-// Create and Save a new Pet
+// Create and Save a new Alert
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.user_id) {
-        res.status(400).send({ message: "User ID can not be empty!" });
+    if (!req.body.pet_id) {
+        res.status(400).send({ message: "Pet ID can not be empty!" });
         return;
     }
 
-    // Create a Pet
-    const pet = new Pet({
-        user_id: req.body.user_id,
-        name: req.body.name,
+    // Create a Alert
+    const alert = new Alert({
+        pet_id: req.body.pet_id,
         type: req.body.type,
-        breed: req.body.breed,
-        age: req.body.age,
-        color: req.body.color,
-        weight: req.body.weight,
-        gender: req.body.gender,
-        previous_vaccination_date: req.body.previous_vaccination_date,
+        date: req.body.date,
+        description: req.body.description,
     });
 
-    // Save Pet in the database
-    pet.save(pet)
+    // Save Alert in the database
+    alert
+        .save(alert)
         .then((data) => {
             res.send(data);
         })
@@ -31,61 +27,63 @@ exports.create = (req, res) => {
             res.status(500).send({
                 message:
                     err.message ||
-                    "Some error occurred while creating the Pet.",
+                    "Some error occurred while creating the Alert.",
             });
         });
 };
 
-// Retrieve all Pets from the database.
+// Retrieve all Alerts from the database.
 exports.findAll = (req, res) => {
-    Pet.find({})
+    Alert.find({})
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving pets.",
+                    err.message ||
+                    "Some error occurred while retrieving alerts.",
             });
         });
 };
 
-// Retrieve all Pets of a user from the database.
-exports.findAllOfUser = (req, res) => {
-    const userID = req.params.userID;
+// Retrieve all Alerts of a pet from the database.
+exports.findAllOfPet = (req, res) => {
+    const petID = req.params.petID;
 
-    Pet.find({ user_id: userID })
+    Alert.find({ pet_id: petID })
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving pets.",
+                    err.message ||
+                    "Some error occurred while retrieving alerts.",
             });
         });
 };
 
-// Find a single Pet with an id
+// Find a single Alert with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Pet.findById(id)
+    Alert.findById(id)
         .then((data) => {
             if (!data)
                 res.status(404).send({
-                    message: "Not found Pet with id " + id,
+                    message: "Not found Alert with id " + id,
                 });
             else res.send(data);
         })
         .catch((err) => {
             res.status(500).send({
-                message: "Error retrieving Pet with id=" + id,
+                message: "Error retrieving Alert with id=" + id,
             });
         });
 };
 
-// Update a Pet by the id in the request
+// Update a Alert by the id in the request
 exports.update = (req, res) => {
     if (!req.body) {
         return res.status(400).send({
@@ -95,57 +93,57 @@ exports.update = (req, res) => {
 
     const id = req.params.id;
 
-    Pet.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    Alert.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then((data) => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot update Pet with id=${id}. Maybe Pet was not found!`,
+                    message: `Cannot update Alert with id=${id}. Maybe Alert was not found!`,
                 });
-            } else res.send({ message: "Pet was updated successfully." });
+            } else res.send({ message: "Alert was updated successfully." });
         })
         .catch((err) => {
             res.status(500).send({
-                message: "Error updating Pet with id=" + id,
+                message: "Error updating Alert with id=" + id,
             });
         });
 };
 
-// Delete a Pet with the specified id in the request
+// Delete a Alert with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Pet.findByIdAndRemove(id)
+    Alert.findByIdAndRemove(id)
         .then((data) => {
             if (!data) {
                 res.status(404).send({
-                    message: `Cannot delete Pet with id=${id}. Maybe Pet was not found!`,
+                    message: `Cannot delete Alert with id=${id}. Maybe Alert was not found!`,
                 });
             } else {
                 res.send({
-                    message: "Pet was deleted successfully!",
+                    message: "Alert was deleted successfully!",
                 });
             }
         })
         .catch((err) => {
             res.status(500).send({
-                message: "Could not delete Pet with id=" + id,
+                message: "Could not delete Alert with id=" + id,
             });
         });
 };
 
-// Delete all Pets from the database.
+// Delete all Alerts from the database.
 exports.deleteAll = (req, res) => {
-    Pet.deleteMany({})
+    Alert.deleteMany({})
         .then((data) => {
             res.send({
-                message: `${data.deletedCount} Pets were deleted successfully!`,
+                message: `${data.deletedCount} Alerts were deleted successfully!`,
             });
         })
         .catch((err) => {
             res.status(500).send({
                 message:
                     err.message ||
-                    "Some error occurred while removing all pets.",
+                    "Some error occurred while removing all alerts.",
             });
         });
 };

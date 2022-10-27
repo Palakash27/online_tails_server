@@ -20,7 +20,7 @@ module.exports = (app) => {
     // Delete a User with id
     router.delete("/:id", users.delete);
 
-    // Create a new User
+    // delete all Users
     router.delete("/", users.deleteAll);
 
     app.use("/api/users", router);

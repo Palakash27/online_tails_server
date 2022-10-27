@@ -38,12 +38,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {
-    const email = req.query.email;
-    var condition = email
-        ? { email: { $regex: new RegExp(email), $options: "i" } }
-        : {};
-
-    User.find(condition)
+    User.find({})
         .then((data) => {
             res.send(data);
         })

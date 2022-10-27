@@ -25,6 +25,7 @@ db.mongoose
 // routes
 require("./app/routes/pet.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/alert.routes")(app);
 
 app.listen(3000, () => {
     console.log("Server started at http://localhost:3000");
