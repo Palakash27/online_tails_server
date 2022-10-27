@@ -15,6 +15,7 @@ module.exports = (mongoose) => {
             },
             first_name: { type: String },
             last_name: { type: String },
+            phone_number: { type: Number },
         },
         {
             timestamps: true,
